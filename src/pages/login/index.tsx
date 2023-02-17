@@ -1,7 +1,30 @@
-import React from 'react'
+import React, { memo, useState } from 'react';
 
-export default function Login() {
+
+// React Login Component
+export default  memo(() => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <div>Login</div>
-  )
-}
+    <form>
+      <input
+        type="text"
+        name="userName"
+        placeholder="Username"
+        value={userName}
+        onChange={e => setUserName(e.target.value)}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+      />
+      <button type="submit" >
+        Login
+      </button>
+    </form>
+  );
+});

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ConfigProvider } from "tdesign-react";
-import "tdesign-react/es/style/index.css";
+// import "tdesign-react/es/style/index.css";
+import 'tdesign-react/dist/reset.css';
 import { useLocation } from "react-router-dom";
 import AppLayout from "./layout";
 import { allRoutes, Routers } from "./router/index";
