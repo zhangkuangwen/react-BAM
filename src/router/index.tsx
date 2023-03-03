@@ -53,6 +53,14 @@ export let routerList: Routers[] = [
         },
       },
       {
+        path: "roleManagement",
+        component: lazy(() => import("@/pages/roleManagement")),
+        meta: {
+          title: "角色管理",
+          icon: "",
+        },
+      },
+      {
         path: "permissionList",
         component: lazy(() => import("@/pages/permissionList")),
         meta: {

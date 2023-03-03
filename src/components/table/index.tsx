@@ -1,30 +1,22 @@
 import React, { memo, useState, useEffect } from "react";
-import {  Table, TableRowData } from 'tdesign-react';
+import { PageInfo, PrimaryTableCol, Table, TableRowData } from 'tdesign-react';
 import Style from "./index.module.less"
-function TableEncapsulation(params: { columns: any; contractList: TableRowData[] | undefined; total: any; }) {
-  const [loading, setloading] = useState<boolean>(false)
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+function TableEncapsulation(params: { setSelectedRowKeys: (arg0: any) => void; selectedRowKeys: (string | number)[] | undefined; columns: PrimaryTableCol<TableRowData>[] | undefined; tabLoading: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; contractList: TableRowData[] | undefined; params: { pageNo: any; pageSize: any; }; total: any;  onPageChange: (arg0: PageInfo) => void; }) {
   function onSelectChange(value: any, selectOptions: any) {
     console.log('onSelectChange', value, selectOptions);
-    setSelectedRowKeys(value);
+    params.setSelectedRowKeys(value);
   }
   return (
-    <Table bordered height="calc(100% - 66.8px)" selectedRowKeys={selectedRowKeys} onSelectChange={onSelectChange} columns={params.columns}
-      rowKey={"id"} loading={loading}
+    <Table bordered height="calc(100% - 66.8px)" selectedRowKeys={params.selectedRowKeys} onSelectChange={onSelectChange} columns={params.columns}
+      rowKey={"id"} loading={params.tabLoading}
       data={params.contractList}
       pagination={{
-        defaultCurrent: 1,
-        defaultPageSize: 10,
+        current:params.params.pageNo,
+        pageSize:params.params.pageSize,
         total: params.total,
         showJumper: true,
         onChange(pageInfo) {
-          console.log(pageInfo, 'onChange pageInfo');
-        },
-        onCurrentChange(current, pageInfo) {
-          console.log(current, pageInfo, 'onCurrentChange current');
-        },
-        onPageSizeChange(size, pageInfo) {
-          console.log(size, pageInfo, 'onPageSizeChange size');
+          params.onPageChange(pageInfo)
         },
       }}
       onRowClick={({ row, index, e }) => {
